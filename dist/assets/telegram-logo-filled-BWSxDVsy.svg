@@ -1,1 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><defs><linearGradient id="a" x1=".667" x2=".417" y1=".167" y2=".75"><stop offset="0" stop-color="#37aee2"/><stop offset="1" stop-color="#1e96c8"/></linearGradient><linearGradient id="b" x1=".66" x2=".851" y1=".437" y2=".802"><stop offset="0" stop-color="#eff7fc"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#a)"/><path fill="#c8daea" d="M98 175c-3.888 0-3.227-1.468-4.568-5.17L82 132.207 170 80"/><path fill="#a9c9dd" d="M98 175c3 0 4.325-1.372 6-3l16-15.558-19.958-12.035"/><path fill="url(#b)" d="M100.04 144.41l48.36 35.729c5.519 3.045 9.501 1.468 10.876-5.123l19.685-92.763c2.015-8.08-3.08-11.746-8.36-9.349l-115.59 44.571c-7.89 3.165-7.843 7.567-1.438 9.528l29.663 9.259 68.673-43.325c3.242-1.966 6.218-.91 3.776 1.258"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <title>gozamas_logo_120</title>
+  <defs>
+    <!-- Dark Background Gradient -->
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1b1b2a"/>
+      <stop offset="100%" stop-color="#0a0a12"/>
+    </radialGradient>
+
+    <!-- Main Dynamic Gradient -->
+    <linearGradient id="main-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00D2FF"/>
+      <stop offset="50%" stop-color="#9A00E6"/>
+      <stop offset="100%" stop-color="#FF007A"/>
+    </linearGradient>
+
+    <!-- Accent / Detail Gradient -->
+    <linearGradient id="accent-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00D2FF"/>
+      <stop offset="100%" stop-color="#E100FF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="60" fill="url(#bg-grad)"/>
+
+  <g fill="none">
+    <!-- Main Paper Plane Shape -->
+    <path fill="url(#main-grad)" stroke="url(#accent-grad)" stroke-width="1.5" stroke-linejoin="round"
+          d="M 22 56 L 98 30 C 100 29 102 31 101 33 L 85 89 C 84 92 80 93 78 91 L 60 70 L 47 88 C 45 91 41 89 41 86 L 41 68 L 22 56 Z"/>
+
+    <!-- Inner White Paper Fold Highlights -->
+    <path fill="#FFFFFF" opacity="0.95" d="M 27 56 L 95 34 L 62 66 Z"/>
+    <path fill="#FFFFFF" opacity="0.80" d="M 95 34 L 82 85 L 62 66 Z"/>
+
+    <!-- Wing Under-Fold Accent -->
+    <path fill="url(#accent-grad)" opacity="0.9" d="M 60 70 L 41 68 L 41 86 C 41 88 44 89 46 87 L 60 70 Z"/>
+
+    <!-- Integrated "g" + "+" Logo Mark -->
+    <g transform="translate(64, 56)">
+      <circle cx="12" cy="12" r="13" fill="#0a0a12" opacity="0.75"/>
+      <path stroke="url(#accent-grad)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"
+            d="M 16 8 C 16 4 12 2.5 8 3.5 C 4 4.5 2 8 4 12 C 6 16 13 16 16 12 C 18 9 18 16 13 20 C 9 22 3 20 1 17"/>
+      <path stroke="url(#accent-grad)" stroke-width="2.5" stroke-linecap="round"
+            d="M 18 4 V 10 M 15 7 H 21"/>
+      <circle cx="8" cy="8" r="1.2" fill="#00D2FF"/>
+    </g>
+  </g>
+</svg>
