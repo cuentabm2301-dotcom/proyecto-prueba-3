@@ -88,12 +88,10 @@ const VideoPlayer: FC<OwnProps> = ({
   } = getActions();
   const videoRef = useRef<HTMLVideoElement>();
   
-  // 1. REFERENCIA PARA EL CONTENEDOR PRINCIPAL
   const playerRef = useRef<HTMLDivElement>(); 
   
   const [isPlaying, setIsPlaying] = useState(!IS_TOUCH_ENV || !IS_IOS);
   
-  // 2. CAMBIO CRÍTICO: Usar playerRef para pantalla completa
   const [isFullscreen, setFullscreen, exitFullscreen] = useFullscreen(playerRef, setIsPlaying);
   
   const { isMobile } = useAppLayout();
@@ -141,7 +139,6 @@ const VideoPlayer: FC<OwnProps> = ({
   }, []);
 
   useEffect(() => {
-    // 3. REGISTRAR EL CONTENEDOR PRINCIPAL
     registerPlayerElement(playerRef.current, () => lastMousePositionRef.current);
     return () => registerPlayerElement(undefined);
   }, []);
@@ -160,7 +157,6 @@ const VideoPlayer: FC<OwnProps> = ({
     toggleControls(true);
   });
 
-  // 4. MANEJADOR TÁCTIL PARA MOSTRAR CONTROLES EN MÓVIL
   const handleVideoTouch = useLastCallback(() => {
     toggleControls(true);
   });
@@ -347,6 +343,7 @@ const VideoPlayer: FC<OwnProps> = ({
       onTouchStart={handleVideoTouch}
     >
       <div
+        className="video-wrapper"
         style={wrapperStyle}
       >
         {isProtected && (
