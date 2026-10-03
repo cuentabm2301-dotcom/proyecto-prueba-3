@@ -21,15 +21,15 @@
 
   &.mobile {
     position: fixed;
-    /* CORRECCIÓN 1: Aumentamos el z-index para asegurar que esté por encima del video en pantalla completa nativa */
+    /* CORRECCIÓN 1: Z-index máximo para asegurar que los controles estén por encima del video en pantalla completa nativa */
     z-index: 2147483647; 
     padding: 2.25rem 0.5rem 0.75rem;
     background: none;
     
     .player-seekline {
-      /* CORRECCIÓN 2: Bajamos la barra de progreso de 1rem a 3rem para evitar el gesto de "deslizar hacia abajo" del sistema Android */
+      /* CORRECCIÓN 2: Bajamos la barra de progreso de 1rem a 3rem para evitar que el sistema operativo Android intercepte el gesto de "deslizar hacia abajo" */
       top: 3rem; 
-      /* CORRECCIÓN 3: Aumentamos el área táctil (padding) para que sea más fácil de agarrar con el dedo */
+      /* CORRECCIÓN 3: Aumentamos el área táctil (padding) para que sea mucho más fácil agarrar la barra con el dedo */
       padding: 1.5rem 0;
     }
     
@@ -47,8 +47,8 @@
       pointer-events: auto !important;
       opacity: 1 !important;
       
-      /* Asegura que los botones también reciban los toques */
-      .buttons, .Button {
+      /* Asegura que los botones y la barra también reciban los toques */
+      .buttons, .Button, .player-seekline {
         pointer-events: auto !important;
       }
     }
