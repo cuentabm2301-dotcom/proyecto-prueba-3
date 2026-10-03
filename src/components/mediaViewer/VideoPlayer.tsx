@@ -54,9 +54,9 @@ type OwnProps = {
   onClose: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 };
 
-const MAX_LOOP_DURATION = 30; // Seconds
+const MAX_LOOP_DURATION = 30;
 const MIN_READY_STATE = 4;
-const REWIND_STEP = 5; // Seconds
+const REWIND_STEP = 5;
 
 const VideoPlayer: FC<OwnProps> = ({
   url,
@@ -87,7 +87,6 @@ const VideoPlayer: FC<OwnProps> = ({
     setMediaViewerHidden,
   } = getActions();
   const videoRef = useRef<HTMLVideoElement>();
-  
   const playerRef = useRef<HTMLDivElement>(); 
   
   const [isPlaying, setIsPlaying] = useState(!IS_TOUCH_ENV || !IS_IOS);
@@ -122,15 +121,12 @@ const VideoPlayer: FC<OwnProps> = ({
     const updateMousePosition = (e: MouseEvent | TouchEvent) => {
       lastMousePositionRef.current = getPointerPosition(e);
     };
-
     const clearMousePosition = () => {
       lastMousePositionRef.current = undefined;
     };
-
     window.addEventListener('mousemove', updateMousePosition);
     window.addEventListener('touchmove', updateMousePosition);
     document.documentElement.addEventListener('mouseleave', clearMousePosition);
-
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('touchmove', updateMousePosition);
@@ -322,9 +318,7 @@ const VideoPlayer: FC<OwnProps> = ({
           break;
       }
     };
-
     document.addEventListener('keydown', handleKeyDown, false);
-
     return () => {
       document.removeEventListener('keydown', handleKeyDown, false);
     };
@@ -337,7 +331,7 @@ const VideoPlayer: FC<OwnProps> = ({
   return (
     <div
       ref={playerRef}
-      className="VideoPlayer"
+      className={`VideoPlayer${isFullscreen ? ' is-fullscreen' : ''}`}
       onMouseMove={shouldToggleControls ? handleVideoMove : undefined}
       onMouseLeave={shouldToggleControls ? handleVideoLeave : undefined}
       onTouchStart={handleVideoTouch}
@@ -368,7 +362,6 @@ const VideoPlayer: FC<OwnProps> = ({
           onEnded={handleEnded}
           onClick={!isMobile && !isFullscreen ? handleClick : undefined}
           onDoubleClick={!IS_TOUCH_ENV ? handleFullscreenChange : undefined}
-
           {...bufferingHandlers}
           onPause={(e) => {
             setIsPlaying(false);
