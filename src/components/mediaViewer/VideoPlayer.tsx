@@ -87,14 +87,20 @@ const VideoPlayer: FC<OwnProps> = ({
     setMediaViewerHidden,
   } = getActions();
   const videoRef = useRef<HTMLVideoElement>();
+  
+  // 1. REFERENCIA PARA EL CONTENEDOR PRINCIPAL
+  const playerRef = useRef<HTMLDivElement>(); 
+  
   const [isPlaying, setIsPlaying] = useState(!IS_TOUCH_ENV || !IS_IOS);
-  const [isFullscreen, setFullscreen, exitFullscreen] = useFullscreen(videoRef, setIsPlaying);
+  
+  // 2. CAMBIO CRÍTICO: Usar playerRef para pantalla completa
+  const [isFullscreen, setFullscreen, exitFullscreen] = useFullscreen(playerRef, setIsPlaying);
+  
   const { isMobile } = useAppLayout();
   const duration = videoRef.current?.duration || 0;
   const isLooped = isGif || duration <= MAX_LOOP_DURATION;
 
   const handleEnterFullscreen = useLastCallback(() => {
-    // Yandex browser doesn't support PIP when video is hidden
     if (IS_YA_BROWSER) return;
     setMediaViewerHidden({ isHidden: true });
   });
@@ -135,7 +141,8 @@ const VideoPlayer: FC<OwnProps> = ({
   }, []);
 
   useEffect(() => {
-    registerPlayerElement(videoRef.current, () => lastMousePositionRef.current);
+    // 3. REGISTRAR EL CONTENEDOR PRINCIPAL
+    registerPlayerElement(playerRef.current, () => lastMousePositionRef.current);
     return () => registerPlayerElement(undefined);
   }, []);
 
@@ -150,6 +157,11 @@ const VideoPlayer: FC<OwnProps> = ({
   });
 
   const handleVideoMove = useLastCallback(() => {
+    toggleControls(true);
+  });
+
+  // 4. MANEJADOR TÁCTIL PARA MOSTRAR CONTROLES EN MÓVIL
+  const handleVideoTouch = useLastCallback(() => {
     toggleControls(true);
   });
 
@@ -194,9 +206,6 @@ const VideoPlayer: FC<OwnProps> = ({
     if (noPlay || !isMediaViewerOpen || isUnsupported) {
       videoRef.current!.pause();
     } else if (url && !IS_TOUCH_ENV) {
-      // Chrome does not automatically start playing when `url` becomes available (even with `autoPlay`),
-      // so we force it here. Contrary, iOS does not allow to call `play` without mouse event,
-      // so we need to use `autoPlay` instead to allow pre-buffering.
       safePlay(videoRef.current!);
     }
   }, [noPlay, isMediaViewerOpen, url, setMediaViewerMuted, isUnsupported]);
@@ -279,7 +288,6 @@ const VideoPlayer: FC<OwnProps> = ({
   });
 
   const handleVolumeMuted = useLastCallback(() => {
-    // Browser requires explicit user interaction to keep video playing after unmuting
     videoRef.current!.muted = !videoRef.current!.muted;
     setMediaViewerMuted({ isMuted: !isMuted });
   });
@@ -306,12 +314,12 @@ const VideoPlayer: FC<OwnProps> = ({
           e.preventDefault();
           togglePlayState(e);
           break;
-        case 'Left': // IE/Edge specific value
+        case 'Left':
         case 'ArrowLeft':
           e.preventDefault();
           rewind(-1);
           break;
-        case 'Right': // IE/Edge specific value
+        case 'Right':
         case 'ArrowRight':
           e.preventDefault();
           rewind(1);
@@ -332,9 +340,11 @@ const VideoPlayer: FC<OwnProps> = ({
 
   return (
     <div
+      ref={playerRef}
       className="VideoPlayer"
       onMouseMove={shouldToggleControls ? handleVideoMove : undefined}
       onMouseLeave={shouldToggleControls ? handleVideoLeave : undefined}
+      onTouchStart={handleVideoTouch}
     >
       <div
         style={wrapperStyle}
@@ -353,7 +363,6 @@ const VideoPlayer: FC<OwnProps> = ({
           controlsList="nodownload"
           playsInline
           loop={isLooped}
-          // This is to force autoplaying on mobiles
           muted={isGif || isMuted}
           id="media-viewer-video"
           style={videoStyle}
