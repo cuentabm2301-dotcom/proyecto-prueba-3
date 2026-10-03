@@ -56,8 +56,7 @@ type OwnProps = {
   onSeekingChange: (isSeeking: boolean) => void;
 };
 
-// CORRECCIÓN 1: Tipado para admitir eventos táctiles en móviles
-const stopEvent = (e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>) => {
+const stopEvent = (e: React.MouseEvent<HTMLElement>) => {
   e.stopPropagation();
 };
 
@@ -114,14 +113,13 @@ const VideoPlayerControls = ({
 
   useEffect(() => {
     if (!IS_TOUCH_ENV && !isForceMobileVersion) return undefined;
-    // CORRECCIÓN 2: Añadido "|| isFullscreen" para evitar que los controles se oculten en pantalla completa
+    // CORRECCIÓN: Añadido "|| isFullscreen" para evitar que los controles se oculten en pantalla completa
     if (!isVisible || !isPlaying || isPlaybackMenuOpen || getIsSeeking() || isFullscreen) {
       if (closeTimeoutRef.current) window.clearTimeout(closeTimeoutRef.current);
       return undefined;
     }
     const scheduleHide = () => {
       closeTimeoutRef.current = window.setTimeout(() => {
-        // Keep controls while the mouse is over them
         if (isMouseInsideControls()) {
           scheduleHide();
           return;
@@ -133,7 +131,6 @@ const VideoPlayerControls = ({
     return () => {
       if (closeTimeoutRef.current) window.clearTimeout(closeTimeoutRef.current);
     };
-    // CORRECCIÓN 3: Añadido "isFullscreen" a las dependencias
   }, [isPlaying, isVisible, setVisibility, isPlaybackMenuOpen, getIsSeeking, isForceMobileVersion, isFullscreen]);
 
   useLayoutEffect(() => {
@@ -178,7 +175,7 @@ const VideoPlayerControls = ({
       ref={rootRef}
       className={buildClassName('VideoPlayerControls', isForceMobileVersion && 'mobile', isVisible && 'active')}
       onClick={stopEvent}
-      onTouchStart={stopEvent} // CORRECCIÓN 4: Detener la propagación del toque en móviles
+      // SE ELIMINÓ onTouchStart={stopEvent} PARA NO BLOQUEAR EL SEEKING
     >
       <SeekLine
         storyboardInfo={storyboardInfo}
