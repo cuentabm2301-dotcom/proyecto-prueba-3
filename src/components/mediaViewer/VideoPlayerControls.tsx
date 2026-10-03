@@ -113,7 +113,7 @@ const VideoPlayerControls = ({
 
   useEffect(() => {
     if (!IS_TOUCH_ENV && !isForceMobileVersion) return undefined;
-    // CORRECCIÓN: Añadido "|| isFullscreen" para evitar que los controles se oculten en pantalla completa
+    // CORRECCIÓN: Se añadió "|| isFullscreen" para evitar que los controles se oculten en pantalla completa
     if (!isVisible || !isPlaying || isPlaybackMenuOpen || getIsSeeking() || isFullscreen) {
       if (closeTimeoutRef.current) window.clearTimeout(closeTimeoutRef.current);
       return undefined;
@@ -175,7 +175,7 @@ const VideoPlayerControls = ({
       ref={rootRef}
       className={buildClassName('VideoPlayerControls', isForceMobileVersion && 'mobile', isVisible && 'active')}
       onClick={stopEvent}
-      // SE ELIMINÓ onTouchStart={stopEvent} PARA NO BLOQUEAR EL SEEKING
+      // NOTA: No se debe añadir onTouchStart aquí para no bloquear el arrastre de la barra
     >
       <SeekLine
         storyboardInfo={storyboardInfo}
