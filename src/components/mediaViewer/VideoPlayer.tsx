@@ -121,15 +121,24 @@ const VideoPlayer: FC<OwnProps> = ({
     const updateMousePosition = (e: MouseEvent | TouchEvent) => {
       lastMousePositionRef.current = getPointerPosition(e);
     };
+
     const clearMousePosition = () => {
       lastMousePositionRef.current = undefined;
     };
+
     window.addEventListener('mousemove', updateMousePosition);
     window.addEventListener('touchmove', updateMousePosition);
+    window.addEventListener('touchstart', updateMousePosition); // Añadido para capturar el toque inicial
+    window.addEventListener('touchend', clearMousePosition);    // Añadido para limpiar al levantar el dedo
+    window.addEventListener('touchcancel', clearMousePosition); // Añadido para limpiar si se cancela el toque
     document.documentElement.addEventListener('mouseleave', clearMousePosition);
+
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('touchmove', updateMousePosition);
+      window.removeEventListener('touchstart', updateMousePosition);
+      window.removeEventListener('touchend', clearMousePosition);
+      window.removeEventListener('touchcancel', clearMousePosition);
       document.documentElement.removeEventListener('mouseleave', clearMousePosition);
     };
   }, []);
@@ -235,11 +244,7 @@ const VideoPlayer: FC<OwnProps> = ({
     if (isClickDisabled) {
       return;
     }
-    if (shouldCloseOnClick) {
-      onClose(e);
-    } else {
-      togglePlayState(e);
-    }
+    togglePlayState(e);
   });
 
   useVideoCleanup(videoRef, bufferingHandlers);
@@ -345,6 +350,7 @@ const VideoPlayer: FC<OwnProps> = ({
             onContextMenu={stopEvent}
             onDoubleClick={!IS_TOUCH_ENV ? handleFullscreenChange : undefined}
             onClick={!isMobile ? togglePlayState : undefined}
+            onTouchStart={handleVideoTouch}
             className="protector"
           />
         )}
