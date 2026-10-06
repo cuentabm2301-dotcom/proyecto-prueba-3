@@ -81,7 +81,7 @@ import {
   selectAnimatedEmoji,
   selectCanAutoLoadMedia,
   selectCanAutoPlayMedia,
-  selectCanForwardMessage,
+  selectCanForwardMessage, // <-- OJO: Aunque se importa, ya no se usa para el botón, pero lo dejamos por si acaso.
   selectCanReplyToMessage,
   selectChat,
   selectChatFullInfo,
@@ -409,7 +409,7 @@ const Message = ({
   isInDocumentGroup,
   isLoadingComments,
   isProtected,
-  canForward,
+  canForward, // <-- Esta prop ya no se usará para el botón, pero se mantiene para evitar errores
   isFocused,
   focusDirection,
   focusedQuote,
@@ -2020,6 +2020,11 @@ const Message = ({
                     isCustomShape
                   />
                 )}
+                {/* 
+                  ⬇️⬇️⬇️ AQUÍ ESTABA EL BOTÓN DE REENVIAR (FOTO 3) ⬇️⬇️⬇️
+                  La condición `canForward &&` evalúa a `false` porque así lo forzamos en `withGlobal`.
+                  Por lo tanto, este botón ya no se renderiza.
+                */}
                 {canForward && (
                   <Button
                     className="message-action-button"
@@ -2312,9 +2317,11 @@ export default memo(withGlobal<OwnProps>(
       storySender,
       isInDocumentGroup,
       isProtected: selectIsMessageProtected(global, message),
-      canForward: Boolean(
-        isChannel && messageListType !== 'scheduled' && selectCanForwardMessage(global, message),
-      ),
+      
+      // ⬇️⬇️⬇️ CAMBIO REALIZADO AQUÍ ⬇️⬇️⬇️
+      // Se reemplazó la condición original por `false` para desactivar el botón permanentemente.
+      canForward: false,
+      
       isFocused,
       isForwarding,
       reactionMessage,
