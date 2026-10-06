@@ -578,7 +578,10 @@ const MessageContextMenu = ({
             {isDownloading ? oldLang('lng_context_cancel_download') : oldLang('lng_media_download')}
           </MenuItem>
         )}
-        {canForward && <MenuItem icon="forward" onClick={onForward}>{oldLang('Forward')}</MenuItem>}
+        
+        {/* ⬇️⬇️⬇️ BOTÓN DE REENVIAR ELIMINADO (FOTO 1) ⬇️⬇️⬇️ */}
+        {/* {canForward && <MenuItem icon="forward" onClick={onForward}>{oldLang('Forward')}</MenuItem>} */}
+        
         {canSelect && <MenuItem icon="select" onClick={onSelect}>{oldLang('Common.Select')}</MenuItem>}
         {canReport && <MenuItem icon="flag" onClick={onReport}>{oldLang('lng_context_report_msg')}</MenuItem>}
         {canDelete && (message.anchorMsgId ? (
