@@ -354,9 +354,9 @@ const MessageContextMenu = ({
     threadId,
     messageListType,
     targetHref,
-    canCopy,
+    false, // ⬅️ CAMBIO 1: Desactiva "Copiar texto" (se pasa false en vez de canCopy)
     handleAfterCopy,
-    canCopyLink ? onCopyLink : undefined,
+    undefined, // ⬅️ CAMBIO 2: Desactiva "Copiar link" (se pasa undefined en vez de onCopyLink)
     onCopyMessages,
     onCopyNumber,
   );
@@ -583,7 +583,10 @@ const MessageContextMenu = ({
         {/* {canForward && <MenuItem icon="forward" onClick={onForward}>{oldLang('Forward')}</MenuItem>} */}
         
         {canSelect && <MenuItem icon="select" onClick={onSelect}>{oldLang('Common.Select')}</MenuItem>}
-        {canReport && <MenuItem icon="flag" onClick={onReport}>{oldLang('lng_context_report_msg')}</MenuItem>}
+        
+        {/* ⬇️⬇️⬇️ BOTÓN DE REPORTE (BANDERA) ELIMINADO ⬇️⬇️⬇️ */}
+        {/* {canReport && <MenuItem icon="flag" onClick={onReport}>{oldLang('lng_context_report_msg')}</MenuItem>} */}
+        
         {canDelete && (message.anchorMsgId ? (
           <MenuItem destructive icon="reload" onClick={onDelete}>
             <MenuItemTitle>{lang('EphemeralRevert')}</MenuItemTitle>
