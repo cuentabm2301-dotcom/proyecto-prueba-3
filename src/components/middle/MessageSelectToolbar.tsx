@@ -260,11 +260,14 @@ const MessageSelectToolbar = ({
                   {!rendering.hasProtectedMessage && (
                     renderButton('copy', oldLang('lng_context_copy_selected_items'), handleCopy)
                   )}
-                  {rendering.messageListType !== 'scheduled' && rendering.canForwardMessages && (
+                  
+                  {/* ⬇️⬇️⬇️ BOTÓN DE REENVIAR ELIMINADO (FOTO 2) ⬇️⬇️⬇️ */}
+                  {/* {rendering.messageListType !== 'scheduled' && rendering.canForwardMessages && (
                     renderButton(
                       'forward', oldLang('Chat.ForwardActionHeader'), openForwardMenuForSelectedMessages,
                     )
-                  )}
+                  )} */}
+                  
                 </div>
               )}
             </>
