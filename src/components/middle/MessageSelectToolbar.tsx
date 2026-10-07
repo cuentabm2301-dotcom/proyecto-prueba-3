@@ -251,9 +251,12 @@ const MessageSelectToolbar = ({
 
               {Boolean(rendering.selectedMessagesCount) && (
                 <div className="MessageSelectToolbar-actions">
-                  {rendering.canReportMessages && (
+                  
+                  {/* ⬇️⬇️⬇️ BOTÓN DE REPORTE (BANDERA) ELIMINADO ⬇️⬇️⬇️ */}
+                  {/* {rendering.canReportMessages && (
                     renderButton('flag', oldLang('Conversation.ReportMessages'), openMessageReport)
-                  )}
+                  )} */}
+                  
                   {rendering.canDownloadMessages && !rendering.hasProtectedMessage && (
                     renderButton('download', oldLang('lng_media_download'), handleMessageDownload)
                   )}
