@@ -211,6 +211,9 @@ const MessageSelectToolbar = ({
     );
   };
 
+  // ⬇️⬇️⬇️ AQUÍ ESTÁ LA MAGIA: Si quieres quitar TODO el menú, descomenta esta línea ⬇️⬇️⬇️
+  // return null;
+
   return (
     <>
       <div className={className}>
