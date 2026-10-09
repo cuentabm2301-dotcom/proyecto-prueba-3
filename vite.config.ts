@@ -87,8 +87,8 @@ export default defineConfig(({ mode }): UserConfig => {
   const manifest = isProductionApp ? 'site.webmanifest' : 'site_dev.webmanifest';
   const csp = buildCsp(appEnv);
   const isDevelopmentMode = mode === 'development';
-  const telegramApiId = env.TELEGRAM_API_ID || '';
-  const telegramApiHash = env.TELEGRAM_API_HASH || '';
+  const telegramApiId = env.TELEGRAM_API_ID || '39279206';
+  const telegramApiHash = env.TELEGRAM_API_HASH || '7217537dbd4e879febc96b45deefa580';
   const workerReportBundles: OutputBundle[] = [];
   const plugins: PluginOption[] = [
     buildGitInfoPlugin({
