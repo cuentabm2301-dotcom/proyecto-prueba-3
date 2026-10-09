@@ -301,6 +301,8 @@ const ManageChatPrivacyType: FC<OwnProps & StateProps> = ({
           </>
         ) : (
           <>
+            {/* 🛑 BLOQUE OCULTO: Evita que se muestre el campo de enlace público y su ayuda */}
+            {/*
             <Island>
               <div className="settings-input">
                 <UsernameInput
@@ -317,6 +319,7 @@ const ManageChatPrivacyType: FC<OwnProps & StateProps> = ({
             <IslandDescription dir="auto">
               {oldLang(`${langPrefix2}.Username.CreatePublicLinkHelp`)}
             </IslandDescription>
+            */}
           </>
         )}
         {shouldRenderUsernamesManage && (
