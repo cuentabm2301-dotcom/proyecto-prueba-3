@@ -299,12 +299,7 @@ const MiddleHeader = ({
         {(isLeftColumnHideable || currentTransitionKey > 0) && renderBackButton(shouldShowCloseButton, !isSavedDialog)}
         <div
           className="chat-info-wrapper"
-          onMouseDown={handleLongPressMouseDown}
-          onMouseUp={handleLongPressMouseUp}
-          onMouseLeave={handleLongPressMouseLeave}
-          onTouchStart={handleLongPressTouchStart}
-          onTouchEnd={handleLongPressTouchEnd}
-        >
+          >
           {isUserId(displayChatId) ? (
             <PrivateChatInfo
               key={displayChatId}
