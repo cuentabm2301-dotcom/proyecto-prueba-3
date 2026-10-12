@@ -211,9 +211,6 @@ const MessageSelectToolbar = ({
     );
   };
 
-  // ⬇️⬇️⬇️ AQUÍ ESTÁ LA MAGIA: Si quieres quitar TODO el menú, descomenta esta línea ⬇️⬇️⬇️
-  // return null;
-
   return (
     <>
       <div className={className}>
@@ -263,9 +260,11 @@ const MessageSelectToolbar = ({
                   {rendering.canDownloadMessages && !rendering.hasProtectedMessage && (
                     renderButton('download', oldLang('lng_media_download'), handleMessageDownload)
                   )}
-                  {!rendering.hasProtectedMessage && (
+                  
+                  {/* ⬇️⬇️⬇️ BOTÓN DE COPIAR ELIMINADO ⬇️⬇️⬇️ */}
+                  {/* {!rendering.hasProtectedMessage && (
                     renderButton('copy', oldLang('lng_context_copy_selected_items'), handleCopy)
-                  )}
+                  )} */}
                   
                   {/* ⬇️⬇️⬇️ BOTÓN DE REENVIAR ELIMINADO (FOTO 2) ⬇️⬇️⬇️ */}
                   {/* {rendering.messageListType !== 'scheduled' && rendering.canForwardMessages && (
