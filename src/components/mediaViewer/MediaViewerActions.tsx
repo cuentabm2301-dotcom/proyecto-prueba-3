@@ -290,6 +290,9 @@ const MediaViewerActions: FC<OwnProps & StateProps> = ({
 
   if (isMobile) {
     const menuItems: MenuItemProps[] = [];
+    
+    // MODIFICACIÓN: Se comenta esta sección para ocultar la opción de Reenviar
+    /*
     if (isMessage && canForward) {
       menuItems.push({
         icon: 'forward',
@@ -297,6 +300,8 @@ const MediaViewerActions: FC<OwnProps & StateProps> = ({
         children: lang('Forward'),
       });
     }
+    */
+
     if (!isProtected) {
       if (isVideo) {
         menuItems.push({
@@ -314,7 +319,8 @@ const MediaViewerActions: FC<OwnProps & StateProps> = ({
       }
     }
 
-    if (canReportAvatar) {
+        // Se añade && false para que nunca muestre la opción de reportar foto de perfil
+    if (canReportAvatar && false) {
       menuItems.push({
         icon: 'flag',
         onClick: onReport,
@@ -322,13 +328,15 @@ const MediaViewerActions: FC<OwnProps & StateProps> = ({
       });
     }
 
-    if (canReportMessage) {
+    // Se añade && false para que nunca muestre la opción de reportar un mensaje o vídeo
+    if (canReportMessage && false) {
       menuItems.push({
         icon: 'flag',
         onClick: handleReportMessage,
         children: lang('ReportPeer.Report'),
       });
     }
+
 
     if (canUpdate) {
       menuItems.push({
@@ -390,7 +398,7 @@ const MediaViewerActions: FC<OwnProps & StateProps> = ({
           iconName="edit"
         />
       )}
-      {isMessage && canForward && (
+      {isMessage && false && (
         <Button
           round
           size="smaller"
@@ -417,7 +425,8 @@ const MediaViewerActions: FC<OwnProps & StateProps> = ({
         onClick={handleZoomIn}
         iconName="zoom-in"
       />
-      {canReportAvatar && (
+            {/* SE AÑADE && false PARA OCULTAR EL REPORTE DE FOTO/VIDEO DE PERFIL */}
+      {canReportAvatar && false && (
         <Button
           round
           size="smaller"
@@ -427,7 +436,8 @@ const MediaViewerActions: FC<OwnProps & StateProps> = ({
           iconName="flag"
         />
       )}
-      {canReportMessage && (
+      {/* SE AÑADE && false PARA OCULTAR EL REPORTE DE MENSAJES MULTIMEDIA */}
+      {canReportMessage && false && (
         <Button
           round
           size="smaller"
@@ -437,6 +447,7 @@ const MediaViewerActions: FC<OwnProps & StateProps> = ({
           iconName="flag"
         />
       )}
+
       {canUpdate && (
         <Button
           round
